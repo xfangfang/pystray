@@ -33,7 +33,7 @@ PATH = '/org/freedesktop/Notifications'
 
 
 class Notifier(object):
-    def __init__(self):
+    def __init__(self, name):
         self._connection = Gio.bus_get_sync(
             Gio.BusType.SESSION,
             None)
@@ -49,6 +49,7 @@ class Notifier(object):
 
         icon_path = tempfile.mktemp('.png')
         self._icon = icon_path
+        self._name = name
 
         @atexit.register
         def cleanup():
@@ -74,7 +75,7 @@ class Notifier(object):
             GLib.Variant(
                 '(susssasa{sv}i)',
                 (
-                    '',
+                    self._name,
                     self._nid,
                     shutil.copy(icon, self._icon),
                     title,

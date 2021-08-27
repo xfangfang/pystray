@@ -61,7 +61,7 @@ class GtkIcon(_base.Icon):
 
     def _run(self):
         self._loop = GLib.MainLoop.new(None, False)
-        self._notifier = notify_dbus.Notifier()
+        self._notifier = notify_dbus.Notifier(self._name)
         self._mark_ready()
 
         # Make sure that we do not inhibit ctrl+c
