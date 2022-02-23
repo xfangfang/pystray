@@ -24,9 +24,13 @@ from gi.repository import Gtk
 
 try:
     gi.require_version('AppIndicator3', '0.1')
+    from gi.repository import AppIndicator3 as AppIndicator
 except ValueError as e:
-    raise ImportError(e)
-from gi.repository import AppIndicator3 as AppIndicator
+    try:
+        gi.require_version('AyatanaAppIndicator3', '0.1')
+        from gi.repository import AyatanaAppIndicator3 as AppIndicator
+    except Exception as e:
+        raise ImportError(e)
 
 from ._util.gtk import GtkIcon, mainloop
 from . import _base
